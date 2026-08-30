@@ -1,33 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="A short page summary for search engines." />
-    <title>My Profile</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Profile page of Muhammad Tayyab" />
+  <title>Muhammad Tayyab - Profile</title>
 </head>
-
 <body>
-    <h1>Hello</h1>
-    <p>This is my first paragraph.</p>
-    <p> I dont like web engineering.</p>
+  <!-- Header -->
+  <header>
+    <h1>Muhammad Tayyab</h1>
+    <p>5th Semester CS Student | Web Engineering (CMS ID: 023-24-0118)</p>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="contact.html">Contact Page</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <p>This is a paragraph.</p>
-    <p>This is another paragraph.</p>
+  <!-- Main Content -->
+  <main>
+    <!-- About Section -->
+    <article id="about" class="card">
+      <h2>About Me</h2>
+      <p>Hi, I am Muhammad Tayyab. I am taking Web Engineering this semester to learn how to build websites.</p>
+      <p class="muted">Currently practicing HTML5 tags, semantics, forms, and tables.</p>
+      
+      <figure>
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500" alt="Laptop on desk with code" width="450" />
+        <figcaption>My web dev workspace setup.</figcaption>
+      </figure>
+    </article>
 
+    <!-- Skills Table Section -->
+    <section id="skills" class="card">
+      <h2>My Tools & Skills</h2>
+      <table>
+        <caption>Tools and Comfort Level</caption>
+        <thead>
+          <tr>
+            <th scope="col">Tool</th>
+            <th scope="col">Comfort</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">HTML5</th>
+            <td>Strong</td>
+          </tr>
+          <tr>
+            <th scope="row">CSS3</th>
+            <td>Comfortable</td>
+          </tr>
+          <tr>
+            <th scope="row">Git &amp; GitHub</th>
+            <td>Comfortable</td>
+          </tr>
+          <tr>
+            <th scope="row">JavaScript</th>
+            <td>Beginner</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section id="contact" class="card">
+      <h2>Contact Me</h2>
+      <form action="#" method="post">
+        <div>
+          <label for="name">Full Name *</label>
+          <input type="text" id="name" name="name" required placeholder="Muhammad Tayyab" />
+        </div>
+        <div>
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" required placeholder="tayyab@example.com" />
+        </div>
+        <div>
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" name="phone" placeholder="+92 300 1234567" />
+        </div>
+        <fieldset>
+          <legend>Preferred Track</legend>
+          <label><input type="radio" name="track" value="frontend" checked /> Frontend</label>
+          <label><input type="radio" name="track" value="backend" /> Backend</label>
+        </fieldset>
+        <div>
+          <label for="topic">Topic</label>
+          <select id="topic" name="topic">
+            <option value="">Choose one</option>
+            <option value="help">Help</option>
+            <option value="feedback">Feedback</option>
+            <option value="project">Project</option>
+          </select>
+        </div>
+        <div>
+          <label for="msg">Message</label>
+          <textarea id="msg" name="message" rows="4" placeholder="Write your message here..."></textarea>
+        </div>
+        <div>
+          <label><input type="checkbox" name="terms" required /> I accept the terms</label>
+        </div>
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Aside -->
+  <aside>
+    <h3>Lab Info</h3>
+    <p>Web Engineering Lab — 5th Semester</p>
+  </aside>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 Muhammad Tayyab (023-24-0118)</p>
     <p>
-        <strong>Important text</strong> and
-        <em>emphasized text</em>.
+      <a href="https://github.com/taybro-o" target="_blank" rel="noopener noreferrer">GitHub</a> |
+      <a href="https://w3.org" target="_blank" rel="noopener noreferrer">W3C Validator</a>
     </p>
-
-    <ul>
-        <li>HTML</li>
-        <li>CSS</li>
-        <li>JS</li>
-    </ul>
-
-    <img src="https://i.natgeofe.com/k/9acd2bad-fb0e-43a8-935d-ec0aefc60c2f/monarch-butterfly-grass.jpg?wp=1&w=897.5&h=505"
-        alt="4k monarch-butterfly">
-
+  </footer>
 </body>
+</html>

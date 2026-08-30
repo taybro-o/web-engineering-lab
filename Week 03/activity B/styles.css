@@ -1,0 +1,18 @@
+body {
+  background-color: #e8e8e8;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+h1 {
+  color: #1e3a8a;
+}
+
+.box {
+  width: 280px;
+  padding: 20px;            /* Inside: content <-> border */
+  border: 2px solid navy;   /* The visible edge */
+  margin: 16px;             /* Outside: this box <-> neighbours */
+  background-color: #e3f2fd;
+  border-radius: 6px;
+}

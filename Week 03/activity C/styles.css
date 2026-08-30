@@ -1,0 +1,62 @@
+/* 1. Tag Selector: (0, 0, 0, 1) */
+h1 {
+  color: navy;
+  font-size: 2rem;
+}
+
+/* 2. Class Selector: (0, 0, 1, 0) */
+.note {
+  color: teal;
+  font-weight: bold;
+}
+
+/* 3. ID Selector: (0, 1, 0, 0) */
+#alert {
+  background-color: #fff3cd;
+  padding: 8px;
+  border-left: 4px solid #ffc107;
+}
+
+/* 4. Attribute Selector: (0, 0, 1, 0) */
+input[type="email"] {
+  border: 2px solid teal;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+input[type="text"] {
+  padding: 8px;
+}
+
+/* 5. Pseudo-class Selector: (0, 0, 1, 0) */
+a:hover {
+  color: crimson;
+  text-decoration: underline;
+}
+
+nav a {
+  margin-right: 12px;
+  font-weight: bold;
+  color: #1e3a8a;
+}
+
+/* 6. Structural Pseudo-class Odd: (0, 0, 1, 0) */
+li:nth-child(odd) {
+  background-color: #e3f2fd;
+  padding: 4px 8px;
+}
+
+/* 7. Structural Pseudo-class Even: (0, 0, 1, 0) */
+li:nth-child(even) {
+  background-color: #fff3e0;
+  padding: 4px 8px;
+}
+
+ul {
+  list-style-type: square;
+  width: 250px;
+}
+
+.form-row {
+  margin-top: 20px;
+}

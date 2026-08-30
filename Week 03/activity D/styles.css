@@ -1,0 +1,21 @@
+/* 1) Element selector: (0, 0, 0, 1) */
+p {
+  color: green;
+  font-size: 1.25rem;
+}
+
+/* 2) Class selector: (0, 0, 1, 0) -> Beats p */
+.intro {
+  color: blue;
+}
+
+/* 3) Element + class compound: (0, 0, 1, 1) -> Beats .intro */
+p.intro {
+  color: purple;
+}
+
+/* 4) ID + element: (0, 1, 0, 1) -> Beats everything above */
+#main p {
+  color: navy;
+  font-weight: bold;
+}
