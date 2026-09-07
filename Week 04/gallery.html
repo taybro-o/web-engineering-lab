@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Flexbox Gallery — Class Activity A & B</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: system-ui, sans-serif;
+      padding: 1.5rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.1rem; margin-top: 1.5rem; color: #333; }
+    .note { font-size: 0.9rem; color: #666; margin-bottom: 1rem; }
+
+    /* Activity A: Wrapping Flexbox Gallery */
+    .gallery-a {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      border: 1px solid #ccc;
+      padding: 1rem;
+      background: #fafafa;
+      border-radius: 6px;
+    }
+    .gallery-a .photo {
+      background: #ddd;
+      padding: 2rem 1rem;
+      text-align: center;
+      font-weight: bold;
+      border-radius: 4px;
+      /* Task A: flex 1 1 160px (grow, shrink, basis) */
+      flex: 1 1 160px;
+    }
+
+    /* Activity B: justify-content with fixed item width */
+    .controls {
+      margin: 1rem 0;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .controls button {
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+      border: 1px solid #aaa;
+      background: #eee;
+      border-radius: 4px;
+      font-size: 0.85rem;
+    }
+    .controls button.active {
+      background: #1a237e;
+      color: white;
+      border-color: #1a237e;
+    }
+
+    .gallery-b {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: space-between;
+      border: 1px solid #ccc;
+      padding: 1rem;
+      background: #fafafa;
+      border-radius: 6px;
+      min-height: 140px;
+    }
+    .gallery-b .photo {
+      background: #bbb;
+      padding: 2rem 1rem;
+      text-align: center;
+      font-weight: bold;
+      border-radius: 4px;
+      /* Task B: flex: 0 0 120px so leftover space remains */
+      flex: 0 0 120px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Flexbox Gallery — Activities A & B</h1>
+  <p>Student: <strong>Muhammad Tayyab</strong> (CMS ID: 023-24-0118)</p>
+
+  <h2>Activity A: Wrapping Row (flex: 1 1 160px)</h2>
+  <p class="note">Shrinking window goes 4 &rarr; 2 &rarr; 1 across with no horizontal scrollbar.</p>
+  <section class="gallery-a">
+    <div class="photo">1</div>
+    <div class="photo">2</div>
+    <div class="photo">3</div>
+    <div class="photo">4</div>
+    <div class="photo">5</div>
+    <div class="photo">6</div>
+  </section>
+
+  <h2>Activity B: Testing justify-content (photo flex: 0 0 120px)</h2>
+  <p class="note">Click buttons below or inspect in DevTools to test leftover space distribution:</p>
+  <div class="controls">
+    <button onclick="setJustify('flex-start', this)">flex-start</button>
+    <button onclick="setJustify('center', this)">center</button>
+    <button onclick="setJustify('flex-end', this)">flex-end</button>
+    <button onclick="setJustify('space-between', this)" class="active">space-between</button>
+    <button onclick="setJustify('space-around', this)">space-around</button>
+    <button onclick="setJustify('space-evenly', this)">space-evenly</button>
+  </div>
+
+  <section id="galleryB" class="gallery-b">
+    <div class="photo">1</div>
+    <div class="photo">2</div>
+    <div class="photo">3</div>
+    <div class="photo">4</div>
+    <div class="photo">5</div>
+    <div class="photo">6</div>
+  </section>
+
+  <script>
+    function setJustify(val, btn) {
+      document.getElementById('galleryB').style.justifyContent = val;
+      document.querySelectorAll('.controls button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+  </script>
+</body>
+</html>

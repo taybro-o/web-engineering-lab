@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Mobile-First Grid Breakpoints — Class Activity D</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: system-ui, sans-serif;
+      padding: 1.5rem;
+      margin: 0;
+    }
+    h1 { font-size: 1.5rem; }
+    .status {
+      font-weight: bold;
+      color: #1a237e;
+      background: #e8eaf6;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Activity D: Mobile-first base layout (no media query) */
+    .gallery {
+      display: grid;
+      grid-template-columns: 1fr; /* 1 column at < 640px */
+      gap: 1rem;
+    }
+
+    .photo {
+      background: #ddd;
+      padding: 2.5rem 1rem;
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: bold;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    /* Small: 640px -> 2 columns */
+    @media (min-width: 640px) {
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Medium: 768px -> 3 columns */
+    @media (min-width: 768px) {
+      .gallery {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* Large: 1024px -> 4 columns */
+    @media (min-width: 1024px) {
+      .gallery {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    /* Extra large: 1280px -> 4 columns with larger gap */
+    @media (min-width: 1280px) {
+      .gallery {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Mobile-First Grid Gallery (Activity D)</h1>
+  <p>Student: <strong>Muhammad Tayyab</strong> (CMS ID: 023-24-0118)</p>
+  <p class="status">Resize browser window or use DevTools: 1 col (&lt;640px) &rarr; 2 cols (&ge;640px) &rarr; 3 cols (&ge;768px) &rarr; 4 cols (&ge;1024px) &rarr; 4 cols + larger gap (&ge;1280px).</p>
+
+  <section class="gallery">
+    <div class="photo">1</div>
+    <div class="photo">2</div>
+    <div class="photo">3</div>
+    <div class="photo">4</div>
+    <div class="photo">5</div>
+    <div class="photo">6</div>
+  </section>
+</body>
+</html>

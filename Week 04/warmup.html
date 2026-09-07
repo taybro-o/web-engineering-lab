@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Flexbox vs Grid — Week 04 Warm-up</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: system-ui, sans-serif;
+      padding: 1.5rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    h1 { font-size: 1.4rem; }
+    h2 { font-size: 1.05rem; margin-top: 1.5rem; color: #333; }
+    .box {
+      background: #ddd;
+      padding: 1rem;
+      text-align: center;
+      font-weight: bold;
+      border-radius: 4px;
+    }
+
+    /* Flexbox — one row (1D) */
+    .flex-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    /* Flexbox with flex-direction: column (1D) */
+    .flex-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    /* Grid — 3 columns, wraps to rows (2D) */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Week 04 Warm-up: Flexbox (1D) vs Grid (2D)</h1>
+  <p>Student: <strong>Muhammad Tayyab</strong> (CMS ID: 023-24-0118)</p>
+
+  <h2>1. Flexbox — one row (7 boxes A–G stay in one row)</h2>
+  <section class="flex-row">
+    <div class="box">A</div>
+    <div class="box">B</div>
+    <div class="box">C</div>
+    <div class="box">D</div>
+    <div class="box">E</div>
+    <div class="box">F</div>
+    <div class="box">G</div>
+  </section>
+
+  <h2>2. Flexbox with <code>flex-direction: column</code></h2>
+  <section class="flex-col">
+    <div class="box">A</div>
+    <div class="box">B</div>
+    <div class="box">C</div>
+    <div class="box">D</div>
+    <div class="box">E</div>
+    <div class="box">F</div>
+    <div class="box">G</div>
+  </section>
+
+  <h2>3. Grid — 3 columns (box G starts 3rd row under A)</h2>
+  <section class="grid">
+    <div class="box">A</div>
+    <div class="box">B</div>
+    <div class="box">C</div>
+    <div class="box">D</div>
+    <div class="box">E</div>
+    <div class="box">F</div>
+    <div class="box">G</div>
+  </section>
+</body>
+</html>
