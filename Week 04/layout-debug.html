@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task 4: Break and Fix (Layout Debug Page) - Muhammad Tayyab (023-24-0118)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.5;
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 2rem 1.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    h1 { font-size: 1.6rem; color: #1e3a8a; margin-bottom: 0.5rem; }
+    .subtitle { color: #64748b; margin-bottom: 2rem; font-size: 0.95rem; }
+    .demo-card {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+    .demo-card h2 { font-size: 1.2rem; color: #1e293b; margin-bottom: 0.5rem; }
+    .code-explain {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 1rem;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      margin: 1rem 0;
+      overflow-x: auto;
+    }
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .pane {
+      border: 2px dashed #94a3b8;
+      border-radius: 6px;
+      padding: 1rem;
+      background: #f8fafc;
+    }
+    .pane.broken { border-color: #ef4444; background: #fef2f2; }
+    .pane.fixed  { border-color: #10b981; background: #ecfdf5; }
+    .pane-title {
+      font-size: 0.9rem;
+      font-weight: bold;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .pane.broken .pane-title { color: #b91c1c; }
+    .pane.fixed .pane-title  { color: #047857; }
+
+    /* ==========================================================================
+       CASE 1: FLEX ITEMS OVERFLOW (MISSING flex-wrap)
+       ========================================================================== */
+    
+    /* --- BROKEN IMPLEMENTATION ---
+       Cause: display: flex without flex-wrap forces all items onto a single line.
+       When children have min-width or text that cannot shrink, they overflow
+       their container, breaking layout borders and causing horizontal spill.
+    */
+    .tag-container-broken {
+      display: flex;
+      /* MISSING: flex-wrap: wrap; */
+      gap: 8px;
+      width: 240px; /* Constrained container */
+      border: 2px solid #ef4444;
+      padding: 8px;
+      background: #fff;
+    }
+    .tag-item {
+      background: #3b82f6;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      white-space: nowrap;
+    }
+
+    /* --- FIXED IMPLEMENTATION ---
+       Fix: Adding flex-wrap: wrap enables flex items to break cleanly onto new rows
+       once available width is exhausted, keeping all items inside the container boundaries.
+    */
+    .tag-container-fixed {
+      display: flex;
+      flex-wrap: wrap; /* FIX: allows children to wrap smoothly to subsequent rows */
+      gap: 8px;
+      width: 240px; /* Same constrained container */
+      border: 2px solid #10b981;
+      padding: 8px;
+      background: #fff;
+    }
+
+    /* ==========================================================================
+       CASE 2: ABSOLUTE BADGE WITHOUT position: relative ON PARENT
+       ========================================================================== */
+
+    /* --- BROKEN IMPLEMENTATION ---
+       Cause: When child element has position: absolute but parent lacks position: relative,
+       the absolute child climbs up the DOM tree until it finds the viewport (html/body).
+       Result: The badge escapes the card completely and renders at the page root!
+    */
+    .card-parent-broken {
+      /* MISSING: position: relative; */
+      width: 240px;
+      height: 120px;
+      background: #fff;
+      border: 2px solid #ef4444;
+      border-radius: 6px;
+      padding: 12px;
+    }
+    .badge-broken {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #ef4444;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      z-index: 50;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    /* --- FIXED IMPLEMENTATION ---
+       Fix: Establishing position: relative on the parent card turns it into the
+       "containing block" (coordinate origin) for position: absolute descendants.
+       Result: The badge anchors perfectly to the card's top-right corner.
+    */
+    .card-parent-fixed {
+      position: relative; /* FIX: establishes coordinate origin for absolute children */
+      width: 240px;
+      height: 120px;
+      background: #fff;
+      border: 2px solid #10b981;
+      border-radius: 6px;
+      padding: 12px;
+    }
+    .badge-fixed {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #10b981;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Task 4: Break and Fix (Layout Debugging)</h1>
+  <p class="subtitle">Student: <strong>Muhammad Tayyab</strong> (CMS ID: 023-24-0118) &bull; Deliberate Bug Demonstrations &amp; Annotations</p>
+
+  <!-- BUG 1 DEMONSTRATION -->
+  <div class="demo-card">
+    <h2>Bug 1: Flex Items Overflowing Row (Missing flex-wrap)</h2>
+    <p>When multiple tags are placed inside a flex row without <code>flex-wrap</code>, items refuse to wrap and breach parent boundaries.</p>
+    
+    <div class="code-explain">
+/* ============================================================= */<br>
+/* BUG 1: BROKEN vs FIXED CSS ANNOTATION                         */<br>
+/* ============================================================= */<br>
+/* BROKEN: No flex-wrap causes elements to overflow bounding box */<br>
+.tag-container-broken {<br>
+&nbsp;&nbsp;display: flex; /* missing flex-wrap: wrap; */<br>
+&nbsp;&nbsp;gap: 8px;<br>
+}<br><br>
+/* FIXED: Adding flex-wrap: wrap preserves container integrity */<br>
+.tag-container-fixed {<br>
+&nbsp;&nbsp;display: flex;<br>
+&nbsp;&nbsp;<strong>flex-wrap: wrap;</strong> /* &lt;-- FIX APPLIED */<br>
+&nbsp;&nbsp;gap: 8px;<br>
+}
+    </div>
+
+    <div class="comparison-grid">
+      <div class="pane broken">
+        <div class="pane-title">&#10060; Broken: Spilling over 240px container</div>
+        <div class="tag-container-broken">
+          <div class="tag-item">HTML5</div>
+          <div class="tag-item">CSS Grid</div>
+          <div class="tag-item">Flexbox</div>
+          <div class="tag-item">Responsive</div>
+        </div>
+      </div>
+      <div class="pane fixed">
+        <div class="pane-title">&#9989; Fixed: Wrapping cleanly inside container</div>
+        <div class="tag-container-fixed">
+          <div class="tag-item">HTML5</div>
+          <div class="tag-item">CSS Grid</div>
+          <div class="tag-item">Flexbox</div>
+          <div class="tag-item">Responsive</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BUG 2 DEMONSTRATION -->
+  <div class="demo-card">
+    <h2>Bug 2: Absolute Notification Badge Escaping Parent Card</h2>
+    <p>When an element has <code>position: absolute</code> but its parent container lacks <code>position: relative</code>, the badge escapes the container and attaches to the top-level viewport window.</p>
+
+    <div class="code-explain">
+/* ============================================================= */<br>
+/* BUG 2: BROKEN vs FIXED CSS ANNOTATION                         */<br>
+/* ============================================================= */<br>
+/* BROKEN: Parent lacks positioning context; badge attaches to body */<br>
+.card-parent-broken {<br>
+&nbsp;&nbsp;width: 240px;<br>
+&nbsp;&nbsp;/* missing position: relative; */<br>
+}<br><br>
+/* FIXED: Adding position: relative creates the containing block */<br>
+.card-parent-fixed {<br>
+&nbsp;&nbsp;width: 240px;<br>
+&nbsp;&nbsp;<strong>position: relative;</strong> /* &lt;-- FIX APPLIED */<br>
+}
+    </div>
+
+    <div class="comparison-grid">
+      <div class="pane broken" style="min-height: 180px;">
+        <div class="pane-title">&#10060; Broken: Badge escapes to viewport top-right</div>
+        <div class="card-parent-broken">
+          <p style="font-size: 0.85rem; color: #b91c1c; font-weight: 600;">Product Card (Broken)</p>
+          <p style="font-size: 0.8rem; color: #64748b;">Notice: Sale badge is not here! It flew out to the browser window corner.</p>
+          <div class="badge-broken" style="position: static; margin-top: 8px; display: inline-block;">[Escaped Badge Simulation]</div>
+        </div>
+      </div>
+      <div class="pane fixed" style="min-height: 180px;">
+        <div class="pane-title">&#9989; Fixed: Badge anchored inside card</div>
+        <div class="card-parent-fixed">
+          <div class="badge-fixed">SALE -50%</div>
+          <p style="font-size: 0.85rem; color: #047857; font-weight: 600;">Product Card (Fixed)</p>
+          <p style="font-size: 0.8rem; color: #64748b; margin-top: 6px;">Sale badge stays pinned right inside the top-right corner of this card.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

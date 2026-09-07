@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task 2: Grey-Box Layout Clone - Muhammad Tayyab (023-24-0118)</title>
+  <style>
+    /* ==========================================================================
+       RESET & BASE THEME (GREY-BOX WIREFRAME)
+       ========================================================================== */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f1f5f9;
+      color: #334155;
+      line-height: 1.5;
+    }
+    .student-bar {
+      background: #1e293b;
+      color: #f8fafc;
+      padding: 0.5rem 2rem;
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .grey-block {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    .grey-dark { background: #94a3b8; }
+    .grey-light { background: #e2e8f0; }
+
+    /* ==========================================================================
+       PAGE SHELL: CSS GRID
+       ========================================================================== */
+    .page-shell {
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      grid-template-areas:
+        "header"
+        "hero"
+        "content"
+        "footer";
+      min-height: 100vh;
+      max-width: 1280px;
+      margin: 0 auto;
+      background: #ffffff;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+
+    /* ==========================================================================
+       HEADER: FLEXBOX (Navigation, Search, Actions)
+       ========================================================================== */
+    header {
+      grid-area: header;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      border-bottom: 2px solid #e2e8f0;
+      gap: 1.5rem;
+    }
+    .logo-box {
+      width: 130px;
+      height: 36px;
+      border-radius: 6px;
+    }
+    nav.header-nav {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    .nav-pill {
+      width: 70px;
+      height: 18px;
+    }
+    .header-actions {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    .search-box {
+      width: 180px;
+      height: 34px;
+      border-radius: 20px;
+    }
+    .btn-box {
+      width: 85px;
+      height: 34px;
+      border-radius: 6px;
+    }
+    .avatar-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+    }
+
+    /* ==========================================================================
+       HERO SHOWCASE: CSS GRID + FLEXBOX
+       ========================================================================== */
+    .hero-section {
+      grid-area: hero;
+      padding: 2rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 2rem;
+      background: #f8fafc;
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+    }
+    .hero-image {
+      min-height: 260px;
+      border-radius: 6px;
+    }
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.9rem;
+    }
+    .tag-badge { width: 90px; height: 20px; border-radius: 4px; }
+    .title-line-lg { width: 90%; height: 28px; }
+    .title-line-sub { width: 75%; height: 20px; }
+    .text-line { width: 100%; height: 14px; }
+    .hero-author-flex {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    /* ==========================================================================
+       MAIN CONTENT: CSS GRID (2-Column Feed + Sidebar)
+       ========================================================================== */
+    .content-container {
+      grid-area: content;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    /* Article Feed Grid (Auto-Fit) */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .article-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      background: #ffffff;
+    }
+    .card-thumb { height: 150px; border-radius: 4px; }
+    .card-tags { display: flex; gap: 0.5rem; }
+    .tag-sm { width: 50px; height: 16px; border-radius: 3px; }
+    .card-title { width: 95%; height: 20px; }
+    .card-desc-1 { width: 100%; height: 12px; }
+    .card-desc-2 { width: 70%; height: 12px; }
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 0.5rem;
+      border-top: 1px solid #f1f5f9;
+    }
+    .meta-user { width: 80px; height: 14px; }
+    .meta-date { width: 55px; height: 14px; }
+
+    /* Sidebar (Flexbox Stacking) */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .sidebar-widget {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      background: #f8fafc;
+    }
+    .widget-title { width: 120px; height: 20px; margin-bottom: 1rem; }
+    .widget-tags-flex {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .widget-item-row {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      margin-bottom: 0.8rem;
+    }
+
+    /* ==========================================================================
+       FOOTER: CSS GRID + FLEXBOX
+       ========================================================================== */
+    footer {
+      grid-area: footer;
+      background: #1e293b;
+      padding: 2.5rem 2rem 1.5rem;
+      color: #94a3b8;
+    }
+    .footer-columns {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .f-title { width: 100px; height: 18px; background: #64748b; }
+    .f-link  { width: 120px; height: 12px; background: #475569; }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1.5rem;
+      border-top: 1px solid #334155;
+    }
+    .copy-pill { width: 180px; height: 14px; background: #475569; }
+    .social-flex { display: flex; gap: 0.75rem; }
+    .social-pill { width: 24px; height: 24px; border-radius: 50%; background: #64748b; }
+
+    /* ==========================================================================
+       RESPONSIVE BREAKPOINTS
+       ========================================================================== */
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .content-container { grid-template-columns: 1fr; }
+      .footer-columns { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      header { flex-wrap: wrap; }
+      nav.header-nav { display: none; }
+      .footer-columns { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="student-bar">
+    <span><strong>Student:</strong> Muhammad Tayyab (CMS ID: 023-24-0118)</span>
+    <span>Web Engineering (CSE-311) &bull; Task 2: Grey-Box Layout Clone</span>
+  </div>
+
+  <div class="page-shell">
+    <!-- Header: Flexbox -->
+    <header>
+      <div class="grey-block grey-dark logo-box"></div>
+      <nav class="header-nav">
+        <div class="grey-block nav-pill"></div>
+        <div class="grey-block nav-pill"></div>
+        <div class="grey-block nav-pill"></div>
+        <div class="grey-block nav-pill"></div>
+      </nav>
+      <div class="header-actions">
+        <div class="grey-block search-box"></div>
+        <div class="grey-block grey-dark btn-box"></div>
+        <div class="grey-block grey-dark avatar-circle"></div>
+      </div>
+    </header>
+
+    <!-- Hero Showcase: CSS Grid + Flexbox -->
+    <section class="hero-section">
+      <div class="hero-grid">
+        <div class="grey-block grey-dark hero-image"></div>
+        <div class="hero-content">
+          <div class="grey-block tag-badge"></div>
+          <div class="grey-block grey-dark title-line-lg"></div>
+          <div class="grey-block grey-dark title-line-sub"></div>
+          <div class="grey-block text-line"></div>
+          <div class="grey-block text-line"></div>
+          <div class="hero-author-flex">
+            <div class="grey-block grey-dark avatar-circle" style="width: 28px; height: 28px;"></div>
+            <div class="grey-block" style="width: 110px; height: 14px;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content: CSS Grid (Cards Feed + Sidebar) -->
+    <div class="content-container">
+      <section class="feed-section">
+        <div class="cards-grid">
+          <!-- Card 1 -->
+          <article class="article-card">
+            <div class="grey-block grey-dark card-thumb"></div>
+            <div class="card-tags">
+              <div class="grey-block tag-sm"></div>
+              <div class="grey-block tag-sm"></div>
+            </div>
+            <div class="grey-block card-title"></div>
+            <div class="grey-block card-desc-1"></div>
+            <div class="grey-block card-desc-2"></div>
+            <div class="card-meta">
+              <div class="grey-block meta-user"></div>
+              <div class="grey-block meta-date"></div>
+            </div>
+          </article>
+          <!-- Card 2 -->
+          <article class="article-card">
+            <div class="grey-block grey-dark card-thumb"></div>
+            <div class="card-tags">
+              <div class="grey-block tag-sm"></div>
+            </div>
+            <div class="grey-block card-title"></div>
+            <div class="grey-block card-desc-1"></div>
+            <div class="grey-block card-desc-2"></div>
+            <div class="card-meta">
+              <div class="grey-block meta-user"></div>
+              <div class="grey-block meta-date"></div>
+            </div>
+          </article>
+          <!-- Card 3 -->
+          <article class="article-card">
+            <div class="grey-block grey-dark card-thumb"></div>
+            <div class="card-tags">
+              <div class="grey-block tag-sm"></div>
+              <div class="grey-block tag-sm"></div>
+            </div>
+            <div class="grey-block card-title"></div>
+            <div class="grey-block card-desc-1"></div>
+            <div class="grey-block card-desc-2"></div>
+            <div class="card-meta">
+              <div class="grey-block meta-user"></div>
+              <div class="grey-block meta-date"></div>
+            </div>
+          </article>
+          <!-- Card 4 -->
+          <article class="article-card">
+            <div class="grey-block grey-dark card-thumb"></div>
+            <div class="card-tags">
+              <div class="grey-block tag-sm"></div>
+            </div>
+            <div class="grey-block card-title"></div>
+            <div class="grey-block card-desc-1"></div>
+            <div class="grey-block card-desc-2"></div>
+            <div class="card-meta">
+              <div class="grey-block meta-user"></div>
+              <div class="grey-block meta-date"></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Sidebar: Flexbox Widgets -->
+      <aside class="sidebar">
+        <div class="sidebar-widget">
+          <div class="grey-block grey-dark widget-title"></div>
+          <div class="widget-tags-flex">
+            <div class="grey-block" style="width: 70px; height: 26px; border-radius: 13px;"></div>
+            <div class="grey-block" style="width: 85px; height: 26px; border-radius: 13px;"></div>
+            <div class="grey-block" style="width: 60px; height: 26px; border-radius: 13px;"></div>
+            <div class="grey-block" style="width: 95px; height: 26px; border-radius: 13px;"></div>
+            <div class="grey-block" style="width: 75px; height: 26px; border-radius: 13px;"></div>
+          </div>
+        </div>
+        <div class="sidebar-widget">
+          <div class="grey-block grey-dark widget-title"></div>
+          <div class="widget-item-row">
+            <div class="grey-block" style="width: 45px; height: 45px; border-radius: 4px;"></div>
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
+              <div class="grey-block" style="width: 90%; height: 12px;"></div>
+              <div class="grey-block" style="width: 60%; height: 10px;"></div>
+            </div>
+          </div>
+          <div class="widget-item-row">
+            <div class="grey-block" style="width: 45px; height: 45px; border-radius: 4px;"></div>
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
+              <div class="grey-block" style="width: 85%; height: 12px;"></div>
+              <div class="grey-block" style="width: 50%; height: 10px;"></div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Footer: CSS Grid + Flexbox -->
+    <footer>
+      <div class="footer-columns">
+        <div class="footer-col">
+          <div class="f-title"></div>
+          <div class="f-link"></div>
+          <div class="f-link"></div>
+          <div class="f-link"></div>
+        </div>
+        <div class="footer-col">
+          <div class="f-title"></div>
+          <div class="f-link"></div>
+          <div class="f-link"></div>
+        </div>
+        <div class="footer-col">
+          <div class="f-title"></div>
+          <div class="f-link"></div>
+          <div class="f-link"></div>
+          <div class="f-link"></div>
+        </div>
+        <div class="footer-col">
+          <div class="f-title"></div>
+          <div class="f-link"></div>
+          <div class="f-link"></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="copy-pill"></div>
+        <div class="social-flex">
+          <div class="social-pill"></div>
+          <div class="social-pill"></div>
+          <div class="social-pill"></div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Responsive Profile Page for Web Engineering Lab 04 Task 3">
+  <title>Muhammad Tayyab - Responsive Profile</title>
+  <style>
+    /* ==========================================================================
+       MOBILE-FIRST BASE STYLES (< 640px, down to 320px)
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      color: #1e293b;
+      background: #f8fafc;
+      padding: 1rem 0.75rem;
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    /* Header & Navigation (Mobile-First: Stacks cleanly) */
+    header {
+      background: #ffffff;
+      padding: 1.25rem 1rem;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 1.4rem;
+      color: #0f172a;
+      margin-bottom: 0.25rem;
+    }
+    header .subtitle {
+      font-size: 0.85rem;
+      color: #64748b;
+      margin-bottom: 1rem;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    nav a {
+      display: block;
+      text-decoration: none;
+      color: #1e3a8a;
+      background: #eff6ff;
+      padding: 0.6rem 1rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    nav a:hover { background: #dbeafe; }
+
+    /* Cards */
+    .card {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 1.25rem 1rem;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .card h2 {
+      font-size: 1.15rem;
+      color: #1e3a8a;
+      margin-bottom: 0.75rem;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 0.4rem;
+    }
+
+    /* Images: 100% Fluid (Never causes horizontal scroll) */
+    figure {
+      margin-top: 1rem;
+      width: 100%;
+    }
+    img.responsive-img {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      display: block;
+    }
+    figcaption {
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-top: 0.4rem;
+      text-align: center;
+    }
+
+    /* Skills Table (Mobile-First: Horizontal Scroll Wrapper) */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-top: 0.5rem;
+    }
+    table {
+      width: 100%;
+      min-width: 260px;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    caption {
+      text-align: left;
+      font-weight: 600;
+      color: #475569;
+      margin-bottom: 0.5rem;
+    }
+    th, td {
+      padding: 0.6rem 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    th {
+      background: #f1f5f9;
+      color: #334155;
+      font-weight: 600;
+    }
+
+    /* Contact Form (Mobile-First: Touch targets >= 44px, full-width inputs) */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin-bottom: 0.9rem;
+    }
+    label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #334155;
+    }
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 0.65rem 0.75rem;
+      font-size: 0.9rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      background: #ffffff;
+      font-family: inherit;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: 2px solid #2563eb;
+      border-color: #2563eb;
+    }
+    textarea { min-height: 90px; resize: vertical; }
+    button.btn-submit {
+      width: 100%;
+      min-height: 44px;
+      background: #1e3a8a;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button.btn-submit:hover { background: #1d4ed8; }
+
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #64748b;
+      padding: 1rem 0;
+    }
+
+    /* ==========================================================================
+       PROGRESSIVE ENHANCEMENT: TABLET & DESKTOP (min-width ladders)
+       ========================================================================== */
+    @media (min-width: 640px) {
+      body { padding: 1.5rem; }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+      }
+      header .subtitle { margin-bottom: 0; }
+      nav ul {
+        flex-direction: row;
+        gap: 0.5rem;
+      }
+      nav a { padding: 0.4rem 0.8rem; }
+      .about-layout {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 1.5rem;
+        align-items: center;
+      }
+      figure { margin-top: 0; }
+    }
+
+    @media (min-width: 768px) {
+      .grid-sections {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.25rem;
+      }
+      button.btn-submit { width: auto; padding: 0.6rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div>
+        <h1>Muhammad Tayyab</h1>
+        <p class="subtitle">5th Semester CS Student | Web Engineering (CMS ID: 023-24-0118)</p>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- About Card -->
+    <article id="about" class="card">
+      <h2>About Me</h2>
+      <div class="about-layout">
+        <div>
+          <p>I am Muhammad Tayyab, a 5th semester computer science student taking Web Engineering, focusing on modern CSS layout architectures, responsive design, and web accessibility standards.</p>
+          <p style="margin-top: 0.5rem; color: #64748b;">Practicing mobile-first methodologies ensuring seamless viewport usability from 320px mobile screens up to multi-monitor desktops.</p>
+        </div>
+        <figure>
+          <svg class="responsive-img" viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="240" rx="8" fill="#1E293B"/>
+            <rect x="20" y="20" width="360" height="170" rx="6" fill="#0F172A"/>
+            <circle cx="45" cy="35" r="5" fill="#EF4444"/>
+            <circle cx="60" cy="35" r="5" fill="#F59E0B"/>
+            <circle cx="75" cy="35" r="5" fill="#10B981"/>
+            <rect x="40" y="55" width="160" height="12" rx="3" fill="#38BDF8"/>
+            <rect x="40" y="75" width="280" height="8" rx="2" fill="#64748B"/>
+            <rect x="40" y="90" width="240" height="8" rx="2" fill="#64748B"/>
+            <rect x="40" y="105" width="200" height="8" rx="2" fill="#64748B"/>
+            <rect x="40" y="130" width="120" height="24" rx="4" fill="#2563EB"/>
+            <rect x="170" y="130" width="80" height="24" rx="4" fill="#334155"/>
+            <rect x="175" y="205" width="50" height="15" rx="3" fill="#64748B"/>
+            <rect x="150" y="220" width="100" height="6" rx="2" fill="#94A3B8"/>
+          </svg>
+          <figcaption>Developer workstation layout.</figcaption>
+        </figure>
+      </div>
+    </article>
+
+    <div class="grid-sections">
+      <!-- Skills Card -->
+      <section id="skills" class="card">
+        <h2>Technical Competencies</h2>
+        <div class="table-container">
+          <table>
+            <caption>Frameworks and Tooling Comfort</caption>
+            <thead>
+              <tr>
+                <th scope="col">Skill / Tool</th>
+                <th scope="col">Proficiency</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">HTML5 Semantics</th><td>Advanced</td></tr>
+              <tr><th scope="row">CSS3 (Flexbox &amp; Grid)</th><td>Advanced</td></tr>
+              <tr><th scope="row">Responsive Media Queries</th><td>Proficient</td></tr>
+              <tr><th scope="row">JavaScript (ES6+)</th><td>Intermediate</td></tr>
+              <tr><th scope="row">Git &amp; GitHub Version Control</th><td>Proficient</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Contact Form Card -->
+      <section id="contact" class="card">
+        <h2>Inquiries &amp; Contact</h2>
+        <form action="#" method="POST" onsubmit="event.preventDefault();">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="name@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="topic">Topic</label>
+            <select id="topic" name="topic">
+              <option value="general">General Collaboration</option>
+              <option value="lab">Lab Consultation</option>
+              <option value="project">Project Work</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Type your message here..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Submit Form</button>
+        </form>
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2026 Muhammad Tayyab (023-24-0118). Web Engineering (CSE-311) Lab 04.</p>
+    </footer>
+  </div>
+</body>
+</html>
