@@ -1,0 +1,61 @@
+================================================================================
+HOMEWORK TASK 2: PREDICTIONS BEFORE RUNNING (TEXT NOTE)
+Student: Muhammad Tayyab (023-24-0118)
+Course: Web Engineering (CSE-311) - 5th Semester
+================================================================================
+
+1. Expression: 0 == false
+   - Predicted Output: true
+   - Actual Output:    true
+   - Explanation:      Loose equality (==) uses type coercion. Boolean 'false' is coerced to number 0, making 0 == 0 true.
+
+2. Expression: 0 === false
+   - Predicted Output: false
+   - Actual Output:    false
+   - Explanation:      Strict equality (===) does not coerce types. Left is number, right is boolean. Types differ, so false.
+
+3. Expression: [] == false
+   - Predicted Output: true
+   - Actual Output:    true
+   - Explanation:      Array [] is an object. Under abstract equality, [] is converted to primitive string "" ([].toString()), which is then coerced to number 0. 0 == 0 evaluates to true.
+
+4. Expression: [] == ![]
+   - Predicted Output: true
+   - Actual Output:    true
+   - Explanation:      Logical NOT (!) has higher precedence. Objects in JS are truthy, so ![] is false. Then [] == false follows rule #3 above and evaluates to true.
+
+5. Expression: null == undefined
+   - Predicted Output: true
+   - Actual Output:    true
+   - Explanation:      By ECMAScript design specification, null loosely equals undefined and nothing else.
+
+6. Expression: null === undefined
+   - Predicted Output: false
+   - Actual Output:    false
+   - Explanation:      Different data types. null is a primitive null value (typeof 'object'), while undefined is undefined type.
+
+7. Expression: typeof NaN
+   - Predicted Output: "number"
+   - Actual Output:    "number"
+   - Explanation:      NaN represents a numeric value representing the result of an invalid mathematical operation, but its underlying IEEE 754 type is number.
+
+8. Expression: 0 || 42 vs 0 ?? 42
+   - Predicted Output: 42 vs 0
+   - Actual Output:    42 vs 0
+   - Explanation:      Logical OR (||) considers 0 falsy and falls back to 42. Nullish coalescing (??) only falls back for null or undefined, preserving 0 as a valid quantitative value.
+
+9. Expression: [10, 2, 5, 1].sort()
+   - Predicted Output: [1, 10, 2, 5]
+   - Actual Output:    [1, 10, 2, 5]
+   - Explanation:      Surprise for beginners! Default sort converts numbers to strings and sorts lexicographically by UTF-16 code units ("10" < "2"). To sort numerically, a comparator function (a, b) => a - b must be supplied.
+
+10. Expression: (() => { sum: 2 + 3 })()
+    - Predicted Output: undefined
+    - Actual Output:    undefined
+    - Explanation:      Curly braces in an arrow function denote a block statement, not an object literal. "sum:" is treated as a statement label. To return an object implicitly, parentheses are required: (() => ({ sum: 2 + 3 }))().
+
+11. Expression: Shallow Spread Mutation
+    - Predicted Output: 100
+    - Actual Output:    100
+    - Explanation:      The spread operator {...obj} creates only a shallow copy. Nested references point to the same memory location, so mutating copy.meta.score also mutates original.meta.score.
+================================================================================
