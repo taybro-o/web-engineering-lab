@@ -1,8 +1,5 @@
-// Week 05: JavaScript Fundamentals - gradebook.js
-// Student: Muhammad Tayyab (023-24-0118)
-// Homework Task 1: Gradebook Script using strictly Array Methods (reduce, filter, map, sort)
-
-const gradebook = [
+// Homework Task 1: Gradebook Script
+const students = [
     { name: "Muhammad Tayyab", score: 94 },
     { name: "Ayesha Khan", score: 88 },
     { name: "Bilal Ahmed", score: 76 },
@@ -13,52 +10,15 @@ const gradebook = [
     { name: "Dua Malik", score: 42 }
 ];
 
-console.log("==================================================");
-console.log("HOMEWORK TASK 1: STUDENT GRADEBOOK ANALYSIS");
-console.log("==================================================");
-console.log("Total Enrolled Students:", gradebook.length);
+const total = students.reduce((sum, s) => sum + s.score, 0);
+const avg = total / students.length;
+const highest = students.reduce((max, s) => (s.score > max.score ? s : max));
+const lowest = students.reduce((min, s) => (s.score < min.score ? s : min));
+const passRate = (students.filter((s) => s.score >= 50).length / students.length) * 100;
+const sorted = [...students].sort((a, b) => b.score - a.score);
 
-// 1. Class Average (calculated using reduce)
-const totalScore = gradebook.reduce((sum, student) => sum + student.score, 0);
-const classAverage = Number((totalScore / gradebook.length).toFixed(2));
-
-// 2. Highest Scorer (calculated using reduce)
-const highestScorer = gradebook.reduce((prev, current) =>
-    current.score > prev.score ? current : prev
-);
-
-// 3. Lowest Scorer (calculated using reduce)
-const lowestScorer = gradebook.reduce((prev, current) =>
-    current.score < prev.score ? current : prev
-);
-
-// 4. Pass Rate (%) (assuming passing threshold >= 50, using filter)
-const passingStudents = gradebook.filter((student) => student.score >= 50);
-const passRate = Number(((passingStudents.length / gradebook.length) * 100).toFixed(2));
-
-// 5. Names sorted high -> low by score (using non-mutating copy [...gradebook].sort().map())
-const namesSortedHighToLow = [...gradebook]
-    .sort((a, b) => b.score - a.score)
-    .map((student) => `${student.name} (${student.score})`);
-
-// Print Formatted Report
-console.log("\n---------------- Gradebook Summary ----------------");
-console.log(`Class Average:        ${classAverage}`);
-console.log(`Highest Scorer:       ${highestScorer.name} with ${highestScorer.score} marks`);
-console.log(`Lowest Scorer:        ${lowestScorer.name} with ${lowestScorer.score} marks`);
-console.log(`Passing Count:        ${passingStudents.length} / ${gradebook.length}`);
-console.log(`Pass Rate:            ${passRate}%`);
-console.log("---------------------------------------------------");
-console.log("\nStudent Ranking (High to Low):");
-namesSortedHighToLow.forEach((entry, rank) => {
-    console.log(`  ${rank + 1}. ${entry}`);
-});
-
-module.exports = {
-    gradebook,
-    classAverage,
-    highestScorer,
-    lowestScorer,
-    passRate,
-    namesSortedHighToLow
-};
+console.log("Class Average:", avg);
+console.log("Highest Scorer:", highest.name, `(${highest.score})`);
+console.log("Lowest Scorer:", lowest.name, `(${lowest.score})`);
+console.log("Pass Rate:", `${passRate}%`);
+console.log("Sorted:", sorted.map((s) => `${s.name}: ${s.score}`));
