@@ -33,19 +33,3 @@ const countWords = (str) =>
 console.log("Initials:", getInitials("Ayesha Khan"));
 console.log("Palindrome:", isPalindrome("Race car"));
 console.log("Word count:", countWords("the quick brown fox"));
-
-// Class Activity C
-const letterGrade = (score) => {
-    if (score >= 90) return "A";
-    if (score >= 80) return "B";
-    if (score >= 70) return "C";
-    if (score >= 60) return "D";
-    return "F";
-};
-
-const displayCount = (n) => n ?? "N/A";
-
-console.log("Grade 85:", letterGrade(85));
-console.log("displayCount(0):", displayCount(0));
-console.log("displayCount(null):", displayCount(null));
-console.log("displayCount(42):", displayCount(42));
