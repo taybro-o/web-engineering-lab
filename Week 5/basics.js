@@ -15,7 +15,7 @@ console.log("Count:", count);
 console.log(0 == false);
 // 0 === false is false because types differ (number vs boolean)
 console.log(0 === false);
-// [] == false is true because [] converts to "" then to 0
+// idk
 console.log([] == false);
 
 // Class Activity B
